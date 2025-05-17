@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Class Scheduling System</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      background-color: #f0f2f5;
+    }
+
+    nav {
+      width: 200px;
+      background-color: white;
+      height: 100vh;
+      padding-top: 20px;
+      position: fixed;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 2;
+    }
+
+    .logo-container {
+      text-align: center;
+      padding: 10px;
+    }
+
+    .logo-container img {
+      width: 120px;
+      height: auto;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      width: 100%;
+    }
+
+    nav ul li {
+      width: 100%;
+    }
+
+    nav ul li button {
+      width: 100%;
+      background: none;
+      border: none;
+      color: black;
+      font-size: 16px;
+      padding: 15px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    nav ul li button:hover {
+      background-color: darkgreen;
+      color: white;
+    }
+
+    nav ul li button.active-btn {
+      background-color: darkgreen;
+      color: white;
+    }
+
+    main {
+      margin-left: 220px;
+      padding: 30px;
+      flex-grow: 1;
+      background: linear-gradient(90deg, #199f50 0%, #5ad47a 100%);
+      min-height: 100vh;
+      color: white;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-top: 0;
+    }
+
+    .section {
+      margin-top: 30px;
+    }
+
+    .quick-actions, .status-overview {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .quick-actions button {
+      padding: 15px 60px;
+      border-radius: 10px;
+      background: white;
+      border: 1px solid black;
+      font-weight: bold;
+      cursor: pointer;
+      color: black;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    .status-overview .box {
+      flex: 1;
+      min-width: 180px;
+      background: white;
+      padding: 8px;
+      border: 1px solid black;
+      border-radius: 10px;
+      color: black;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .status-overview .box strong {
+      font-size: 14px;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .status-overview .box .number {
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    .lower-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin-top: 30px;
+    }
+
+    .classes, .activity {
+      background: white;
+      border: 1px solid black;
+      border-radius: 10px;
+      padding: 10px;
+      color: #333;
+      font-size: 12px;
+    }
+
+    .classes {
+      flex: 1.5;
+    }
+
+    .classes h3 {
+      margin-top: 0;
+    }
+
+    .activity {
+      flex: 1;
+      border-left: 4px solid #199f50;
+    }
+
+    .activity h3 {
+      margin-top: 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 5px;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .activity p {
+      margin: 12px 0;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 6px;
+    }
+
+    .activity small {
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo-container">
+      <img src="http://bpc.edu.ph/wp-content/uploads/2024/12/LOGO-e1733733724127-160.png" alt="School Logo">
+    </div>
+    <ul>
+      <li><button class="active-btn" onclick="showTab('dashboard', this)"><i class="fas fa-home"></i> Dashboard</button></li>
+      <li><button onclick="showTab('manage-faculty', this)"><i class="fa-solid fa-user"></i> Manage Faculty</button></li>
+      <li><a href="manage-student.html"><button><i class="fa-solid fa-users"></i> Manage Student</button></a></li>
+      <li><button onclick="showTab('manage-room', this)"><i class="fas fa-chalkboard-teacher"></i> Manage Room</button></li>
+      <li><button onclick="showTab('manage-subject', this)"><i class="fa-solid fa-book-open"></i> Manage Subject</button></li>
+      <li><button onclick="showTab('rooms', this)"><i class="fas fa-door-open"></i> Room Schedule</button></li>
+      <li><button onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section id="dashboard" class="tab-content active">
+      <h1>Welcome to the Class Scheduling System</h1>
+      <div class="section">
+        <strong>Quick Actions</strong>
+        <div class="quick-actions">
+          <button onclick="alert('Feature Coming Soon')">Create a Schedule</button>
+          <button onclick="alert('Feature Coming Soon')">View Faculty Schedule</button>
+          <button onclick="alert('Feature Coming Soon')">View Room Availability</button>
+        </div>
+      </div>
+      <div class="section">
+        <strong>Status Overview</strong>
+        <div class="status-overview">
+          <div class="box"><strong>Total Faculty</strong><span class="number">35</span></div>
+          <div class="box"><strong>Total Students</strong><span class="number">700</span></div>
+          <div class="box"><strong>Total Rooms</strong><span class="number">50</span></div>
+          <div class="box"><strong>Schedules Created Today</strong><span class="number">10</span></div>
+        </div>
+      </div>
+      <div class="lower-section">
+        <div class="classes">
+          <h3>CLASSES</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Course Code</th>
+                <th>Faculty</th>
+                <th>Room</th>
+                <th>Time</th>
+                <th>Day</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>IS-FIS 123</td>
+                <td>Ms. Deserie Robles</td>
+                <td>ComLab 5</td>
+                <td>10:00 - 1:30</td>
+                <td>Monday</td>
+              </tr>
+              <tr>
+                <td>CC-CP2 123</td>
+                <td>Mr. Rhey Santos</td>
+                <td>ComLab 1</td>
+                <td>2:30 - 5:30</td>
+                <td>Monday</td>
+              </tr>
+              <tr>
+                <td>AD-HCI 123</td>
+                <td>Ms. Joana Cruz</td>
+                <td>Room 104</td>
+                <td>5:30 - 8:30</td>
+                <td>Monday</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="activity">
+          <h3>Recent Activity</h3>
+          <p>Admin created a new schedule<br /><small>1 hour ago</small></p>
+          <p>Admin added a new student<br /><small>5 hours ago</small></p>
+          <p>Admin updated faculty information<br /><small>1 day ago</small></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="manage-faculty" class="tab-content"><h2>Manage Faculty</h2></section>
+    <section id="manage-room" class="tab-content"><h2>Manage Room</h2></section>
+    <section id="manage-subject" class="tab-content"><h2>Manage Subject</h2></section>
+    <section id="rooms" class="tab-content"><h2>Room Schedule</h2></section>
+  </main>
+
+  <script>
+    function showTab(tabId, btn) {
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      document.getElementById(tabId).classList.add('active');
+
+      document.querySelectorAll("nav ul li button").forEach(button => {
+        button.classList.remove("active-btn");
+      });
+      btn.classList.add("active-btn");
+    }
+
+    function logout() {
+      alert("Logging out...");
+    }
+  </script>
+</body>
+</html>

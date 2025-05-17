@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manage Students</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      background: linear-gradient(90deg, #199f50 0%, #5ad47a 100%);
+    }
+
+    nav {
+      width: 220px;
+      background-color: white;
+      height: 100vh;
+      padding-top: 20px;
+      position: fixed;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .logo-container {
+      padding: 10px;
+      text-align: center;
+    }
+
+    .logo-container img {
+      width: 120px;
+      height: auto;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+      width: 100%;
+    }
+
+    nav ul li {
+      width: 100%;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px;
+      color: black;
+      width: 100%;
+      transition: background 0.3s;
+    }
+
+    nav ul li a.active,
+    nav ul li a:hover {
+      background-color: darkgreen;
+      color: white;
+    }
+
+    nav ul li a i {
+      width: 25px;
+      text-align: center;
+    }
+
+    main {
+      margin-left: 220px;
+      padding: 20px;
+      flex-grow: 1;
+      width: calc(100% - 220px);
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      color: white;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .top-right {
+      padding-top: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+    }
+
+    .admin-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+    }
+
+    .admin-text {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .search-filter {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .search-filter input,
+    .search-filter select {
+      padding: 8px;
+      border-radius: 5px;
+      border: none;
+      width: 200px;
+    }
+
+    @media (max-width: 800px) {
+      .top-right {
+        align-items: flex-start;
+        width: 100%;
+      }
+
+      .search-filter {
+        padding-top: 10px;
+        width: 100%;
+      }
+
+      .search-filter input,
+      .search-filter select {
+        width: 100%;
+      }
+    }
+
+
+    .student-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .student-card {
+      background: white;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .student-card .icon {
+      font-size: 40px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        width: 60px;
+      }
+
+      nav ul li a span {
+        display: none;
+      }
+
+      main {
+        margin-left: 60px;
+        width: calc(100% - 60px);
+      }
+
+      .search-filter {
+        flex-direction: column;
+      }
+
+      .search-filter input,
+      .search-filter select {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo-container">
+      <img src="http://bpc.edu.ph/wp-content/uploads/2024/12/LOGO-e1733733724127-160.png" alt="School Logo" />
+    </div>
+    <ul>
+      <li><a href="index.html"><i class="fas fa-home"></i><span>Dashboard</span></a></li>
+      <li><a href="manage-faculty.html"><i class="fa-solid fa-user"></i><span>Manage Faculty</span></a></li>
+      <li><a href="manage-student.html" class="active"><i class="fa-solid fa-users"></i><span>Manage Students</span></a></li>
+      <li><a href="manage-rooms.html"><i class="fas fa-chalkboard-teacher"></i><span>Manage Rooms</span></a></li>
+      <li><a href="manage-subjects.html"><i class="fa-solid fa-book-open"></i><span>Manage Subjects</span></a></li>
+      <li><a href="room-schedule.html"><i class="fas fa-door-open"></i><span>Room Schedule</span></a></li>
+      <li><a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
+    </ul>
+  </nav>
+
+  <main>
+<header>
+  <h1>Students</h1>
+  <div class="top-right">
+    <div class="admin-info">
+      <i class="fas fa-bell"></i>
+      <div class="admin-text">
+        <strong>Maureen Dela Cruz</strong>
+        <span>Admin</span>
+      </div>
+
+      <i class="fas fa-user-circle"></i>
+    </div>
+
+    <div class="search-filter">
+      <input type="text" placeholder="Search here..." id="searchInput" onkeyup="filterStudents()" />
+      <select id="courseFilter" onchange="filterStudents()">
+        <option value="">Courses</option>
+        <option value="Bachelor of Science in Office Management">BS Office Management</option>
+        <option value="Bachelor of Science in Information System">BS Information System</option>
+        <option value="Bachelor of Technical Vocational Teacher Education">BTVTE</option>
+        <option value="Bachelor of Science in Customs Administration">BS Customs Admin</option>
+        <option value="Bachelor of Science in Accounting Information System">BS Accounting IS</option>
+      </select>
+
+    </div>
+  </div>
+</header>
+
+
+    <div id="studentCards" class="student-grid"></div>
+  </main>
+
+  <script>
+    const students = [
+      { id: "MA24000001", name: "Juan Dela Cruz", address: "Malolos, Bulacan", year: "1st Year", course: "Bachelor of Science in Office Management" },
+      { id: "MA24000002", name: "Juan Dela Cruz", address: "Malolos, Bulacan", year: "1st Year", course: "Bachelor of Science in Accounting Information System" },
+      { id: "MA24000003", name: "Juan Dela Cruz", address: "Malolos, Bulacan", year: "1st Year", course: "Bachelor of Technical Vocational Teacher Education" },
+      { id: "MA24000004", name: "Juan Dela Cruz", address: "Malolos, Bulacan", year: "1st Year", course: "Bachelor of Science in Customs Administration" },
+      { id: "MA24000005", name: "Juan Dela Cruz", address: "Malolos, Bulacan", year: "1st Year", course: "Bachelor of Science in Information System" },
+      { id: "MA24000006", name: "Juan Dela Cruz", address: "Malolos, Bulacan", year: "1st Year", course: "Bachelor of Science in Office Management" },
+      { id: "MA24000007", name: "Juan Dela Cruz", address: "Malolos, Bulacan", year: "1st Year", course: "Bachelor of Science in Information System" },
+      { id: "MA24000008", name: "Juan Dela Cruz", address: "Malolos, Bulacan", year: "1st Year", course: "Bachelor of Science in Information System" }
+    ];
+
+    function displayStudents(data) {
+      const container = document.getElementById("studentCards");
+      container.innerHTML = "";
+      data.forEach(student => {
+        container.innerHTML += `
+          <div class="student-card">
+            <div class="icon"><i class="fas fa-user-circle"></i></div>
+            <p><strong>Student ID:</strong> ${student.id}</p>
+            <p><strong>Name:</strong> ${student.name}</p>
+            <p><strong>Address:</strong> ${student.address}</p>
+            <p><strong>Year:</strong> ${student.year}</p>
+            <p><strong>Course:</strong> ${student.course}</p>
+          </div>
+        `;
+      });
+    }
+
+    function filterStudents() {
+      const query = document.getElementById("searchInput").value.toLowerCase();
+      const course = document.getElementById("courseFilter").value;
+      const filtered = students.filter(s =>
+        (s.name.toLowerCase().includes(query) || s.id.toLowerCase().includes(query)) &&
+        (course === "" || s.course === course)
+      );
+      displayStudents(filtered);
+    }
+
+    function logout() {
+      alert("Logging out...");
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      displayStudents(students);
+    });
+  </script>
+</body>
+</html>
