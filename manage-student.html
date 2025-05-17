@@ -14,11 +14,11 @@
       margin: 0;
       font-family: 'Poppins', sans-serif;
       display: flex;
-      background: linear-gradient(90deg, #199f50 0%, #5ad47a 100%);
+      background: darkgreen;
     }
 
     nav {
-      width: 220px;
+      width: 200px;
       background-color: white;
       height: 100vh;
       padding-top: 20px;
@@ -26,8 +26,9 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      z-index: 2;
     }
-
+    
     .logo-container {
       padding: 10px;
       text-align: center;
@@ -43,7 +44,11 @@
       padding: 0;
       margin-top: 20px;
       width: 100%;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
     }
+
 
     nav ul li {
       width: 100%;
@@ -71,6 +76,10 @@
       text-align: center;
     }
 
+    nav ul li:last-child {
+      margin-top: auto;
+    }
+
     main {
       margin-left: 220px;
       padding: 20px;
@@ -87,32 +96,56 @@
       flex-wrap: wrap;
     }
 
-    .top-right {
-      padding-top: 12px;
+.top-right {
+      position: absolute;
+      top: 40px;
+      right: 40px;
       display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 10px;
+      align-items: center;
+      padding-top: 5px;
+      gap: 15px;
+      color: white;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .notification {
+      font-size: 17px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      position: relative;
     }
 
     .admin-info {
       display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 14px;
+      flex-direction: column;
+      font-size: 18px;
+      text-align: right;
+      line-height: 1.1;
     }
 
-    .admin-text {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
+    .admin-name {
+      font-weight: 700;
     }
+
+    .admin-role {
+      font-weight: 400;
+      font-size: 12px;
+      opacity: 0.8;
+    }
+
+    .profile-icon {
+      font-size: 34px;
+      cursor: pointer;
+    }
+
 
     .search-filter {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
       margin-top: 10px;
+      padding-top:60px;
     }
 
     .search-filter input,
@@ -196,23 +229,26 @@
       <li><a href="manage-student.html" class="active"><i class="fa-solid fa-users"></i><span>Manage Students</span></a></li>
       <li><a href="manage-rooms.html"><i class="fas fa-chalkboard-teacher"></i><span>Manage Rooms</span></a></li>
       <li><a href="manage-subjects.html"><i class="fa-solid fa-book-open"></i><span>Manage Subjects</span></a></li>
-      <li><a href="room-schedule.html"><i class="fas fa-door-open"></i><span>Room Schedule</span></a></li>
-      <li><a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
+      <li><a href="#" onclick="logout()"><i class="fas fa-power-off"></i><span>Logout</span></a></li>
     </ul>
   </nav>
 
-  <main>
+<main>
 <header>
   <h1>Students</h1>
-  <div class="top-right">
-    <div class="admin-info">
+     <div class="top-right">
+    <div class="notification">
       <i class="fas fa-bell"></i>
-      <div class="admin-text">
-        <strong>Maureen Dela Cruz</strong>
-        <span>Admin</span>
-      </div>
-
+    </div>
+    <div class="admin-info">
+      <div class="admin-name">Maureen Dela Cruz</div>
+      <div class="admin-role">Admin</div>
+    </div>
+    <div class="profile-icon">
       <i class="fas fa-user-circle"></i>
+    </div>
+    </div>
+
     </div>
 
     <div class="search-filter">
@@ -273,8 +309,9 @@
       displayStudents(filtered);
     }
 
-    function logout() {
+   function logout() {
       alert("Logging out...");
+      location.href = 'Class-Scheduling-System-Login.html'; 
     }
 
     document.addEventListener("DOMContentLoaded", () => {
