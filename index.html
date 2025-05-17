@@ -18,7 +18,7 @@
       margin: 0;
       padding: 0;
       display: flex;
-      background-color: #f0f2f5;
+      background-color: darkgreen;
     }
 
     nav {
@@ -46,7 +46,11 @@
     nav ul {
       list-style: none;
       padding: 0;
+      margin-top: 20px;
       width: 100%;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
     }
 
     nav ul li {
@@ -64,6 +68,10 @@
       text-align: left;
     }
 
+    nav ul li:last-child {
+      margin-top: auto;
+    }
+
     nav ul li button:hover {
       background-color: darkgreen;
       color: white;
@@ -78,7 +86,7 @@
       margin-left: 220px;
       padding: 30px;
       flex-grow: 1;
-      background: linear-gradient(90deg, #199f50 0%, #5ad47a 100%);
+      background: darkgreen;
       min-height: 100vh;
       color: white;
     }
@@ -206,8 +214,7 @@
       <li><a href="manage-student.html"><button><i class="fa-solid fa-users"></i> Manage Student</button></a></li>
       <li><button onclick="showTab('manage-room', this)"><i class="fas fa-chalkboard-teacher"></i> Manage Room</button></li>
       <li><button onclick="showTab('manage-subject', this)"><i class="fa-solid fa-book-open"></i> Manage Subject</button></li>
-      <li><button onclick="showTab('rooms', this)"><i class="fas fa-door-open"></i> Room Schedule</button></li>
-      <li><button onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button></li>
+      <li><button onclick="logout()"><i class="fas fa-power-off"></i> Logout</button></li>
     </ul>
   </nav>
 
