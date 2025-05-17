@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Class Scheduling System</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+    body, html {
+      height: 100%;
+      background: linear-gradient(to right, #4CAF50, #A5D6A7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .container {
+      display: flex;
+      width: 900px;
+      height: 500px;
+      background-color: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    }
+    .left, .right {
+      flex: 1;
+      padding: 40px;
+    }
+
+    .left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .left h2 {
+      font-size: 32px;
+      text-align: center;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+    .checkbox-group {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+    }
+
+    .forgot-link {
+      color: black;
+      text-decoration: none;
+      font-weight: normal;
+    }
+
+    .forgot-link:hover {
+      text-decoration: underline;
+    }
+
+    .login-btn, .register-btn {
+      background-color: #8BC34A;
+      font-size: 15px;
+      font-weight: bold;
+      padding: 10px;
+      border: 1px solid black;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    .login-btn {
+      color: white;
+      width: 45%;
+      align-self: center;
+    }
+
+    .google-btn {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 14px;
+    }
+    .right {
+      background-image: url('./login.png'); 
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .overlay {
+      background-color: rgba(255, 255, 255, 0.85);
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      max-width: 90%;
+    }
+    .overlay h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    .overlay p {
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+    .register-btn {
+      width: auto;
+      padding: 10px 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left">
+      <h2>LOG IN</h2>
+      <div class="input-group">
+        <input type="email" id="email" placeholder="Email" required />
+        <input type="password" id="password" placeholder="Password" required />
+      </div>
+      <div class="checkbox-group">
+        <label><input type="checkbox" id="remember" /> Remember me</label>
+        <a href="#" class="forgot-link">Forgot Password?</a>
+      </div>
+      <button class="login-btn" onclick="login()">Login</button>
+      <div class="google-btn">
+        or use your account <br><br>
+        <img src="https://github.com/Makoto1415/WebDev/blob/main/WebDev/googlelogo.png?raw=true" alt="Google logo" height="30px" width="30px" />
+      </div>
+    </div>
+    <div class="right">
+      <div class="overlay">
+        <h1>Welcome to Class Scheduling System!</h1>
+        <p>Please log in or register with your official credentials to manage class schedules.</p>
+        <button class="register-btn" onclick="register()">Register →</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function login() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      if (!email || !password) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+        alert(`Logging in as: ${email}`);
+        window.location.href = 'Dashboard.html';
+      }
+
+      function register() {
+        window.location.href = 'Class-Scheduling-System-Register.html';
+      }
+  </script>
+</body>
+</html>

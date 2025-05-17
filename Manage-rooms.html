@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manage Rooms</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      background: linear-gradient(90deg, darkgreen 0%, green 100%);
+    }
+
+    nav {
+      width: 200px;
+      background-color: white;
+      height: 100vh;
+      padding-top: 20px;
+      position: fixed;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .logo-container {
+      text-align: center;
+      padding: 10px;
+    }
+
+    .logo-container img {
+      width: 120px; 
+      height: auto;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      width: 100%;
+      display: flex;   
+      flex-direction: column;  
+      flex-grow: 1;          
+    } 
+
+    nav ul li {
+      width: 100%;
+    }
+
+    nav ul li button {
+      width: 100%;
+      background: none;
+      border: none;
+      color: black;
+      font-size: 16px;
+      padding: 15px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    nav ul li button:hover {
+      background-color: darkgreen;
+      color: white;
+    }
+
+    nav ul li button img {
+      transition: filter 0.3s ease;
+    }
+
+    nav ul li button:hover img {
+      filter: brightness(0) invert(1);
+    }
+
+    nav ul li:last-child {
+      margin-top: auto;
+    }
+
+    .main {
+      margin-left: 220px;
+      margin-top: 20px;
+      padding: 20px;
+      color: white;
+      flex-grow: 1;
+    }
+
+    .main h1 {
+      font-size: 36px;
+      margin-top: 1px;
+    }
+
+    .top-right {
+      position: absolute;
+      top: 40px;
+      right: 40px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      color: white;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .notification {
+      font-size: 17px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .admin-info {
+      display: flex;
+      flex-direction: column;
+      font-size: 18px;
+      text-align: right;
+      line-height: 1.1;
+    }
+
+    .admin-name {
+      font-weight: 700;
+    }
+
+    .admin-role {
+      font-weight: 400;
+      font-size: 12px;
+      opacity: 0.8;
+    }
+
+    .profile-icon {
+      font-size: 34px;
+      cursor: pointer;
+    }
+
+    </style>
+</head>
+<body>
+
+   <nav>
+      <div class="logo-container"> <img src="http://bpc.edu.ph/wp-content/uploads/2024/12/LOGO-e1733733724127-160.png" alt="School Logo"> </div>
+      
+      <ul>
+        <li><a href="Dashboard.html"><button onclick="showTab('dashboard')"><i class="fas fa-home"></i> Dashboard</button></a></li>
+        <li><a href="Manage-faculty.html"><button onclick="showTab('manage-faculty')"><i class="fa-solid fa-user"></i> Manage Faculty</button></a></li>
+        <li><a href="manage-students.html"><button onclick="showTab('manage-students')"><i class="fa-solid fa-users"></i> Manage Student</button></a></li>
+        <li><a href="Manage-rooms.html"><button onclick="showTab('manage-room')"><i class="fas fa-chalkboard-teacher"></i> Manage Room</button></a></li>
+        <li><a href="Manage-subjects.html"><button onclick="showTab('manage-subject')"><i class="fa-solid fa-book-open"></i> Manage Subject</button></a></li>
+        <li><a href=""><button onclick="logout('')"><i class="fas fa-power-off"></i> Logout</button></a></li>
+  </nav>
+
+  <div class="main">
+
+    <div class="top-right">
+    <div class="notification">
+      <i class="fas fa-bell"></i>
+    </div>
+    <div class="admin-info">
+      <div class="admin-name">Maureen Dela Cruz</div>
+      <div class="admin-role">Admin</div>
+    </div>
+    <div class="profile-icon">
+      <i class="fas fa-user-circle"></i>
+    </div>
+    </div>
+  </div>
+
+<script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('collapsed');
+    }
+
+    function goTo(page) {
+      window.location.href = page;
+    }
+
+    function logout() {
+      alert("Logging out...");
+      location.href = 'Class-Scheduling-System-Login.html'; 
+    }
+  </script>
+</body>
+</html>

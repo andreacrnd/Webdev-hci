@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manage Faculty</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      background: linear-gradient(90deg, darkgreen 0%, green 100%);
+    }
+
+    nav {
+      width: 200px;
+      background-color: white;
+      height: 100vh;
+      padding-top: 20px;
+      position: fixed;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .logo-container {
+      text-align: center;
+      padding: 10px;
+    }
+
+    .logo-container img {
+      width: 120px; 
+      height: auto;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      width: 100%;
+      display: flex;   
+      flex-direction: column;  
+      flex-grow: 1;          
+    } 
+
+    nav ul li {
+      width: 100%;
+    }
+
+    nav ul li button {
+      width: 100%;
+      background: none;
+      border: none;
+      color: black;
+      font-size: 16px;
+      padding: 15px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    nav ul li button:hover {
+      background-color: darkgreen;
+      color: white;
+    }
+
+    nav ul li button.active {
+      background-color: darkgreen;
+      color: white;
+    }
+
+
+    nav ul li button img {
+      transition: filter 0.3s ease;
+    }
+
+    nav ul li button:hover img {
+      filter: brightness(0) invert(1);
+    }
+
+    nav ul li:last-child {
+      margin-top: auto;
+    }
+
+    .main {
+      margin-left: 220px;
+      margin-top: 20px;
+      padding: 20px;
+      color: white;
+      flex-grow: 1;
+    }
+
+    .main h1 {
+      font-size: 36px;
+      margin-top: 1px;
+    }
+
+    .top-right {
+      position: absolute;
+      top: 40px;
+      right: 40px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      color: white;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .notification {
+      font-size: 17px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .admin-info {
+      display: flex;
+      flex-direction: column;
+      font-size: 18px;
+      text-align: right;
+      line-height: 1.1;
+    }
+
+    .admin-name {
+      font-weight: 700;
+    }
+
+    .admin-role {
+      font-weight: 400;
+      font-size: 12px;
+      opacity: 0.8;
+    }
+
+    .profile-icon {
+      font-size: 34px;
+      cursor: pointer;
+    }
+
+    .instructor-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 30px;
+      gap: 10px;
+    }
+
+    .instructor-header h2 {
+      margin: 0;
+    }
+
+    .filter-bar {
+      margin: 20px 0;
+      justify-content: flex-end;
+      display: flex;
+      gap: 30px;  
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .filter-bar input,
+    .filter-bar select,
+    .filter-bar button {
+      padding: 10px 15px;
+      border-radius: 8px;
+      border: 1px solid black;
+      font-family: inherit;
+    }
+
+    #facultyList {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* Fixed to 3 columns */
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .faculty-card {
+      display: flex; /* Image and text side-by-side */
+      align-items: center;
+      background: white;
+      border: 1px solid black;
+      border-radius: 12px;
+      padding: 15px;
+      color: #333;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: left;
+    }
+
+    .faculty-card img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 15px;
+    }
+
+    .faculty-card .info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .faculty-card h3 {
+      margin: 0;
+      font-size: 18px; /* Name: slightly bigger */
+      font-weight: bold;
+    }
+
+    .faculty-card p {
+      margin: 2px 0;
+      color: #666;
+      font-size: 13px; /* Subject: smaller */
+    }
+
+    .faculty-card a {
+      margin-top: 6px; /* Small space before View Profile */
+      color: #6a0dad;
+      font-size: 14px; /* Medium size */
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+  </style>
+</head>
+<body>
+
+   <nav>
+      <div class="logo-container"> <img src="http://bpc.edu.ph/wp-content/uploads/2024/12/LOGO-e1733733724127-160.png" alt="School Logo"> </div>
+      
+      <ul>
+        <li><a href="Dashboard.html"><button onclick="showTab('dashboard')"><i class="fas fa-home"></i> Dashboard</button></a></li>
+       <li><a href="Manage-faculty.html"><button class="active" onclick="showTab('manage-faculty')"><i class="fa-solid fa-user"></i> Manage Faculty</button></a></li>
+        <li><a href="manage-students.html"><button onclick="showTab('manage-students')"><i class="fa-solid fa-users"></i> Manage Student</button></a></li>
+        <li><a href="Manage-rooms.html"><button onclick="showTab('manage-room')"><i class="fas fa-chalkboard-teacher"></i> Manage Room</button></a></li>
+        <li><a href="Manage-subjects.html"><button onclick="showTab('manage-subject')"><i class="fa-solid fa-book-open"></i> Manage Subject</button></a></li>
+        <li><a href=""><button onclick="logout('')"><i class="fas fa-power-off"></i> Logout</button></a></li>
+  </nav>
+  
+  <div class="main">
+
+    <div class="top-right">
+    <div class="notification">
+      <i class="fas fa-bell"></i>
+    </div>
+    <div class="admin-info">
+      <div class="admin-name">Maureen Dela Cruz</div>
+      <div class="admin-role">Admin</div>
+    </div>
+    <div class="profile-icon">
+      <i class="fas fa-user-circle"></i>
+    </div>
+  </div>
+
+    <h1>Faculty</h1>
+    <div class="instructor-header">
+      <h2><i class="fas fa-user"></i> Instructors</h2>
+      <div class="filter-bar">
+        <input type="text" id="searchInput" placeholder="Search here..." />
+        <select id="subjectFilter">
+          <option value="All">All Subjects</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="facultyList"></div>
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('collapsed');
+    }
+
+    function goTo(page) {
+      window.location.href = page;
+    }
+
+    function logout() {
+      alert("Logging out...");
+      location.href = 'Class-Scheduling-System-Login.html'; 
+    }
+
+    // Sample Static Data
+    const instructors = [
+      { name: 'Chelsea Robles', subject: 'IS-FIS', image: 'https://github.com/Makoto1415/WebDev/blob/main/WebDev/Instructor.png?raw=true', id: 1 },
+      { name: 'Luke Santos', subject: 'CC-CP', image: 'https://github.com/Makoto1415/WebDev/blob/main/WebDev/Instructor.png?raw=true', id: 2 },
+      { name: 'Thea Cruz', subject: 'AD-HCI', image: 'https://github.com/Makoto1415/WebDev/blob/main/WebDev/Instructor.png?raw=true', id: 3 },
+      { name: 'Micheal Gatchalian', subject: 'CT-WD', image: 'https://github.com/Makoto1415/WebDev/blob/main/WebDev/Instructor.png?raw=true', id: 4 },
+      { name: 'Joshua Santiago', subject: 'CT-OOP', image: 'https://github.com/Makoto1415/WebDev/blob/main/WebDev/Instructor.png?raw=true', id: 5 },
+      { name: 'Benedict Navarro', subject: 'GE-TCW', image: 'https://github.com/Makoto1415/WebDev/blob/main/WebDev/Instructor.png?raw=true', id: 6 },
+      { name: 'Kristine Perez', subject: 'PATHFIT', image: 'https://github.com/Makoto1415/WebDev/blob/main/WebDev/Instructor.png?raw=true', id: 7 },
+      { name: 'Lianne Torres', subject: 'GE-TCW', image: 'https://github.com/Makoto1415/WebDev/blob/main/WebDev/Instructor.png?raw=true', id: 8 },
+      { name: 'Francis Diaz', subject: 'NSTP', image: 'https://github.com/Makoto1415/WebDev/blob/main/WebDev/Instructor.png?raw=true', id: 9 },
+      { name: 'Joy Ramirez', subject: 'CC-CP', image: 'https://github.com/Makoto1415/WebDev/blob/main/WebDev/Instructor.png?raw=true', id: 10 },
+      { name: 'Katrina Reyes', subject: 'IS-FIS', image: 'https://github.com/Makoto1415/WebDev/blob/main/WebDev/Instructor.png?raw=true', id: 11 },
+      { name: 'Mark Dela Cruz', subject: 'AD-HCI', image: 'https://github.com/Makoto1415/WebDev/blob/main/WebDev/Instructor.png?raw=true', id: 12 },
+      { name: 'Angel Santos', subject: 'CT-WD', image: 'https://github.com/Makoto1415/WebDev/blob/main/WebDev/Instructor.png?raw=true', id: 13 },
+      { name: 'Charles Mendoza', subject: 'CT-OOP', image: 'https://github.com/Makoto1415/WebDev/blob/main/WebDev/Instructor.png?raw=true', id: 14 },
+      { name: 'Feliciano Garcia', subject: 'PATHFIT', image: 'https://github.com/Makoto1415/WebDev/blob/main/WebDev/Instructor.png?raw=true', id: 15 },
+
+    ];
+
+    const itemsPerPage = 9;
+    let currentPage = 1;
+
+    function renderFaculty() {
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      const filter = document.getElementById('subjectFilter').value;
+
+      const filtered = instructors.filter(f =>
+        (f.name.toLowerCase().includes(search)) &&
+        (filter === 'All' || f.subject === filter)
+      );
+
+      document.getElementById('facultyList').innerHTML = filtered.map(f => `
+        <div class="faculty-card">
+          <img src="${f.image}" alt="${f.name}">
+          <div class="info">
+            <h3>${f.name}</h3>
+            <p>${f.subject}</p>
+            <a href="InstructorProfile.html?id=${f.id}">View Profile</a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+
+    function renderPagination(totalItems) {
+      const pageCount = Math.ceil(totalItems / itemsPerPage);
+      const pagination = document.getElementById('pagination');
+      pagination.innerHTML = '';
+
+      for (let i = 1; i <= pageCount; i++) {
+        pagination.innerHTML += `
+          <button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>
+        `;
+      }
+    }
+
+    function changePage(page) {
+      currentPage = page;
+      renderFaculty();
+    }
+
+    function populateSubjects() {
+      const subjects = [...new Set(instructors.map(f => f.subject))];
+      const dropdown = document.getElementById('subjectFilter');
+      subjects.forEach(subject => {
+        dropdown.innerHTML += `<option value="${subject}">${subject}</option>`;
+      });
+    }
+
+    document.getElementById('searchInput').addEventListener('input', () => {
+      currentPage = 1;
+      renderFaculty();
+    });
+
+    document.getElementById('subjectFilter').addEventListener('change', () => {
+      currentPage = 1;
+      renderFaculty();
+    });
+
+    // Initial load
+    populateSubjects();
+    renderFaculty();
+  </script>
+</body>
+</html>
