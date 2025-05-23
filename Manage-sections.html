@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manage Sections</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      background: linear-gradient(90deg, darkgreen 0%, green 100%);
+    }
+
+    nav {
+      width: 200px;
+      background-color: white;
+      height: 100vh;
+      padding-top: 20px;
+      position: fixed;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .logo-container {
+      text-align: center;
+      padding: 10px;
+    }
+
+    .logo-container img {
+      width: 120px; 
+      height: auto;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      width: 100%;
+      display: flex;   
+      flex-direction: column;  
+      flex-grow: 1;          
+    } 
+
+    nav ul li {
+      width: 100%;
+    }
+
+    nav ul li button {
+      width: 100%;
+      background: none;
+      border: none;
+      color: black;
+      font-size: 16px;
+      padding: 15px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    nav ul li button:hover {
+      background-color: darkgreen;
+      color: white;
+    }
+
+    nav ul li button.active {
+      background-color: darkgreen;
+      color: white;
+      font-weight: bold;
+    }
+
+    nav ul li button img {
+      transition: filter 0.3s ease;
+    }
+
+    nav ul li button:hover img {
+      filter: brightness(0) invert(1);
+    }
+
+    nav ul li:last-child {
+      margin-top: auto;
+    }
+
+    .main {
+      margin-left: 220px;
+      padding: 20px;
+      color: white;
+      flex-grow: 1;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .page-header h1 {
+      margin-top: 0;      
+      padding-top: 0;      
+      position: relative; 
+      top: -80px;           
+    }
+
+    .top-right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 15px;
+      color: white;
+      padding-top: 40px;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+      margin-bottom: 20px;
+    }
+
+    .add-subject-btn {
+      background: #D9D9D9;
+      color: black;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .notification {
+      font-size: 17px;
+      margin-bottom: 5px;
+      cursor: pointer;
+      position: relative;
+      padding-top: 30px;
+    }
+
+    .admin-info {
+      display: flex;
+      flex-direction: column;
+      font-size: 18px;
+      text-align: right;
+      line-height: 1.1;
+      padding-top:40px;
+    }
+
+    .admin-name {
+      font-weight: 700;
+    }
+
+    .admin-role {
+      font-weight: 400;
+      font-size: 12px;
+      opacity: 0.8;
+    }
+
+    .profile-icon {
+      font-size: 34px;
+      cursor: pointer;
+      padding-top: 30px;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 5px;
+    }
+
+     .edit-btn, .delete-btn {
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      padding: 8px 12px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      background: transparent;
+      color: black; 
+    }
+
+    .edit-btn i, .delete-btn i {
+      margin-right: 5px;
+    }
+
+    #sectionModal, #deleteModal, #importModal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      justify-content: center;
+      align-items: center;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .modal-content {
+      background-color: #D9D9D9;
+      color: black;
+      border-radius: 15px;
+      padding: 50px;
+      width: 350px;
+      max-width: 100%;
+      box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.3);
+      animation: popIn 0.25s ease-out;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sections-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .program-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 15px 0 5px 0;
+      color: white;
+    }
+
+    .section-item {
+      background-color: white;
+      color: black;
+      padding: 15px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .section-name {
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    @keyframes popIn {
+      from {
+        transform: scale(0.95);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .modal-content h2 {
+      background-color:#D9D9D9;
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 22px;
+      font-weight: 600;
+      color: #1a1a1a;
+      text-align: center;
+    }
+
+    .modal-content label {
+      font-size: 14px;
+      font-weight: 790;
+      color: #333;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .modal-content input {
+      width: 100%;
+      padding: 10px 12px;
+      margin-bottom: 15px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      transition: border 0.2s;
+      background-color: #D9D9D9;
+      box-shadow: 1px 1px;
+    }
+
+    .modal-content select {
+      width: 107%;
+      padding: 10px 12px;
+      margin-bottom: 15px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      transition: border 0.2s;
+      background-color: #D9D9D9;
+      box-shadow: 1px 1px;
+    }
+
+    .modal-content input:focus,
+    .modal-content select:focus {
+      border-color: #28a745;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: center; 
+      gap: 20px; 
+      margin-top: 20px;
+    }
+
+    .modal-actions button {
+      padding: 18px 30px;
+      font-size: 16px;
+      border: none;
+      width: 140px;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .modal-actions .cancel-btn {
+      background-color: #B2B2B2;
+      color: #333;
+      width: 140px;
+    }
+
+    .modal-actions .save-btn {
+      background-color: #28a745;
+      color: white;
+      width: 140px;
+    }
+
+    .modal-actions .cancel-btn:hover {
+      background-color: #ccc;
+    }
+
+    .modal-actions .save-btn:hover {
+      background-color: #218838;
+    }
+
+    .delete-modal {
+      background: #D9D9D9;
+      padding: 30px 40px;
+      border-style: solid;
+      border-color: black;
+      text-align: center;
+      width: 350px;
+      box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .delete-modal-text {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 30px;
+      color: #1a1a1a;
+    }
+
+    .delete-modal-actions {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .modal-btn {
+      background-color: #1a1a1a;
+      color: white;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    /* Import Modal Styles */
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.4);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .import-modal {
+      background: #fff;
+      color: #000;
+      padding: 20px 30px;
+      border-radius: 12px;
+      width: 300px;
+      text-align: left;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      font-family: Arial, sans-serif;
+    }
+
+    .import-modal h2 {
+      margin-top: 0;
+      font-size: 20px;
+      text-align: left;
+    }
+
+    .file-input {
+      margin: 15px 0;
+      border: 2px solid #333;
+      border-bottom: 3px solid #333;
+      border-radius: 8px;
+      padding: 12px 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      position: relative;
+      width: 100%;
+      box-sizing: border-box;
+      color: #333;
+      font-weight: 600;
+      text-align: left;
+      user-select: none;
+      min-height: 40px;
+    }
+
+    .file-input input[type="file"] {
+      opacity: 0;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+
+    .status {
+      margin: 15px 0;
+      font-size: 14px;
+      color: #444;
+      display: none;
+    }
+
+    .spinner {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #333;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .year-section-dropdown {
+      margin-bottom: 20px;
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      gap: 15px;
+      padding-top: 30px;
+    }
+
+    .year-section-dropdown select {
+      padding: 8px 12px;
+      width: 150px;
+      border-radius: 15px;
+      border: 1px solid #ccc;
+      background-color: white;
+      color: #333;
+      font-size: 14px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo-container">
+      <img src="http://bpc.edu.ph/wp-content/uploads/2024/12/LOGO-e1733733724127-160.png" alt="School Logo" />
+    </div>
+    <ul>
+      <li><a href="Dashboard.html"><button><i class="fas fa-home"></i> Dashboard</button></a></li>
+      <li><a href="Manage-Faculty.html"><button><i class="fa-solid fa-user"></i> Manage Faculty</button></a></li>
+      <li><a href="Manage-sections.html"><button class="active"><i class="fas fa-columns"></i> Manage Sections</button></a></li>
+      <li><a href="Manage-Rooms.html"><button><i class="fas fa-chalkboard-teacher"></i> Manage Room</button></a></li>
+      <li><a href="Manage-Subjects.html"><button><i class="fa-solid fa-book-open"></i> Manage Subject</button></a></li>
+      <li><a href="User-Management.html"><button><i class="fas fa-user-friends"></i> User Management</button></a></li>
+      <li><a href="Login.html"><button><i class="fas fa-power-off"></i> Logout</button></a></li>
+    </ul>
+  </nav>
+
+  <div class="main">
+    <div class="top-right">
+      <div class="notification"><i class="fas fa-bell"></i></div>
+      <div class="admin-info">
+        <div class="admin-name">Maureen Dela Cruz</div>
+        <div class="admin-role">VPAA</div>
+      </div>
+      <div class="profile-icon"><i class="fas fa-user-circle"></i></div>
+    </div>
+
+    <div class="page-header">
+      <h1>Sections</h1>
+      <div class="button-group">
+        <button onclick="openImportModal()" class="add-subject-btn">Import Files</button>
+      </div>
+    </div>
+
+    <div class="year-section-dropdown">
+      <select id="yearFilter">
+        <option value="all">Year & Section</option>
+        <option value="1st Year">BSIS 1A</option>
+        <option value="2nd Year">BSIS 1B</option>
+        <option value="3rd Year">BSIS 1C</option>
+      </select>
+
+      <select id="programFilter">
+        <option value="all">All Programs</option>
+        <option value="BSIS">BSIS</option>
+        <option value="BSOM">BSOM</option>
+        <option value="BTVTED">BTVTED</option>
+        <option value="BSAIS">BSAIS</option>
+        <option value="BSCA">BSCA</option>
+      </select>
+    </div>
+
+    <div class="sections-container" id="sectionsContainer">
+    </div>
+
+    <!-- Add/Edit Section Modal -->
+    <div id="sectionModal">
+      <div class="modal-content">
+
+        <label for="sectionCode">Section Code</label>
+        <input id="sectionCode" placeholder="e.g. BSIS-1A" />
+
+        <label for="sectionYear">Year Level</label>
+        <select id="sectionYear">
+          <option>1st Year</option>
+          <option>2nd Year</option>
+          <option>3rd Year</option>
+          <option>4th Year</option>
+        </select>
+
+        <label for="sectionProgram">Program</label>
+        <select id="sectionProgram">
+          <option>BSIS</option>
+          <option>BSOM</option>
+          <option>BTVTED</option>
+          <option>BSAIS</option>
+          <option>BSCA</option>
+        </select>
+
+        <div class="modal-actions">
+          <button class="save-btn" onclick="saveSection()">Save</button>
+          <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="deleteModal" class="modal-overlay">
+      <div class="delete-modal">
+        <p class="delete-modal-text">Are you sure you want to delete this section?</p>
+        <div class="delete-modal-actions">
+          <button onclick="confirmDelete()" class="modal-btn">Yes</button>
+          <button onclick="closeDeleteModal()" class="modal-btn">Back</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Import Modal -->
+    <div class="modal-backdrop" id="importModal">
+      <div class="import-modal">
+        <h2>Import Files</h2>
+        <label class="file-input">
+          Choose a file
+          <input type="file" id="importFileInput" />
+        </label>
+        <div class="status" id="importStatus">
+          <span class="spinner"></span> Importing file . . .
+        </div>
+        <div class="modal-actions">
+          <button class="cancel-btn" id="closeImportModalBtn">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const sections = [];
+    let editIndex = null;
+    let deleteIndex = null;
+
+    function openModal(index = null) {
+      document.getElementById("sectionModal").style.display = "flex";
+      document.getElementById("modalTitle").textContent = index === null ? "Add Section" : "Edit Section";
+
+      if (index !== null) {
+        const section = sections[index];
+        document.getElementById("sectionCode").value = section.code;
+        document.getElementById("sectionProgram").value = section.program;
+        document.getElementById("sectionYear").value = section.year;
+        editIndex = index;
+      } else {
+        document.getElementById("sectionCode").value = "";
+        document.getElementById("sectionProgram").selectedIndex = 0;
+        document.getElementById("sectionYear").selectedIndex = 0;
+        editIndex = null;
+      }
+    }
+
+    function saveSection() {
+      const code = document.getElementById("sectionCode").value.trim();
+      const program = document.getElementById("sectionProgram").value;
+      const year = document.getElementById("sectionYear").value;
+
+      if (!code || !program || !year) {
+        alert("Please fill in all fields");
+        return;
+      }
+
+      const sectionData = { code, program, year };
+
+      if (editIndex !== null) {
+        sections[editIndex] = sectionData;
+      } else {
+        sections.push(sectionData);
+      }
+
+      renderSections();
+      closeModal();
+    }
+
+    function closeModal() {
+      document.getElementById("sectionModal").style.display = "none";
+    }
+
+    function renderSections() {
+      const container = document.getElementById("sectionsContainer");
+      container.innerHTML = "";
+
+      const yearFilter = document.getElementById("yearFilter").value;
+      const programFilter = document.getElementById("programFilter").value;
+
+      sections.forEach((s, index) => {
+        if (
+          (yearFilter === "all" || s.year === yearFilter) &&
+          (programFilter === "all" || s.program === programFilter)
+        ) {
+          const sectionElement = document.createElement("div");
+          sectionElement.className = "section-item";
+
+        sectionElement.innerHTML = `
+          <div class="section-name">${s.code}</div>
+          <div class="action-buttons">
+            <button class="edit-btn" onclick="openModal(${index})">
+              <img src="https://www.freeiconspng.com/thumbs/edit-icon-png/edit-icon-black-1.png" alt="Edit" width="20" height="20" />
+            </button>
+            <button class="delete-btn" onclick="deleteSection(${index})">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        `;
+
+          container.appendChild(sectionElement);
+        }
+      });
+    }
+
+    function deleteSection(index) {
+      document.getElementById("deleteModal").style.display = "flex";
+      deleteIndex = index;
+    }
+
+    function closeDeleteModal() {
+      document.getElementById("deleteModal").style.display = "none";
+    }
+
+    function confirmDelete() {
+      if (deleteIndex !== null) {
+        sections.splice(deleteIndex, 1);
+        deleteIndex = null;
+        renderSections();
+        closeDeleteModal();
+      }
+    }
+
+    function openImportModal() {
+      document.getElementById("importModal").style.display = "flex";
+      setImportStatusVisible(false);
+      clearImportFileInput();
+    }
+
+    function closeImportModal() {
+      document.getElementById("importModal").style.display = "none";
+      clearImportFileInput();
+    }
+
+    function clearImportFileInput() {
+      const fileInput = document.getElementById('importFileInput');
+      fileInput.value = '';
+    }
+
+    function setImportStatusVisible(visible) {
+      const status = document.getElementById('importStatus');
+      status.style.display = visible ? 'block' : 'none';
+    }
+
+    function importSectionFile(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      setImportStatusVisible(true);
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const importedData = JSON.parse(e.target.result);
+          if (Array.isArray(importedData)) {
+            importedData.forEach(s => {
+              if (s.code && s.program && s.year) {
+                sections.push({
+                  code: s.code,
+                  program: s.program,
+                  year: s.year
+                });
+              }
+            });
+            renderSections();
+
+            setTimeout(() => {
+              closeImportModal();
+              setImportStatusVisible(false);
+            }, 2000);
+          } else {
+            alert('Invalid file format. Please upload a valid JSON file.');
+            setImportStatusVisible(false);
+          }
+        } catch (err) {
+          alert('Failed to read file. Make sure it\'s valid JSON.');
+          setImportStatusVisible(false);
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const importFileInput = document.getElementById('importFileInput');
+      importFileInput.addEventListener('change', importSectionFile);
+
+      sections.push(
+        { code: "BSIS-1A", program: "BSIS", year: "1st Year" },
+        { code: "BSIS-1B", program: "BSIS", year: "1st Year" },
+        { code: "BSIS-1C", program: "BSIS", year: "1st Year" }
+      );
+
+      renderSections();
+
+      document.getElementById('closeImportModalBtn').addEventListener('click', closeImportModal);
+
+      document.getElementById('yearFilter').addEventListener('change', renderSections);
+      document.getElementById('programFilter').addEventListener('change', renderSections);
+    });
+  </script>
+</body>
+</html>
