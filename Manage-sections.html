@@ -131,7 +131,6 @@
       margin-bottom: 5px;
       cursor: pointer;
       position: relative;
-      padding-top: 30px;
     }
 
     .admin-info {
@@ -140,7 +139,7 @@
       font-size: 18px;
       text-align: right;
       line-height: 1.1;
-      padding-top:40px;
+      margin-right: 10px;
     }
 
     .admin-name {
@@ -156,7 +155,6 @@
     .profile-icon {
       font-size: 34px;
       cursor: pointer;
-      padding-top: 30px;
     }
 
     .action-buttons {
@@ -228,6 +226,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      cursor: pointer;
     }
 
     .section-name {
@@ -366,7 +365,6 @@
       cursor: pointer;
     }
 
-    /* Import Modal Styles */
     .modal-backdrop {
       position: fixed;
       top: 0;
@@ -469,6 +467,66 @@
       font-size: 14px;
     }
 
+    /* schedule page (hidden by default) */
+    .schedule-page {
+      display: none;
+    }
+
+    .back-button {
+      position: absolute;
+      top: 40px;
+      left: 220px;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .print-download-buttons {
+      display: flex;
+      gap: 10px;
+      margin-left: auto;
+      padding-top: 150px;
+    }
+
+    .print-btn, .download-btn, .edit-schedule-btn {
+      background: #D9D9D9;
+      color: black;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .schedule-container {
+      background-color: white;
+      padding: 20px;
+      margin-top: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .schedule-image {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      display: block;
+      border: 1px solid #ddd;
+    }
+
+    .top-right-container {
+      display: flex;
+      align-items: center;
+    }
   </style>
 </head>
 <body>
@@ -488,47 +546,77 @@
     </ul>
   </nav>
 
-  <div class="main">
+  <div class="main" id="mainContent">
     <div class="top-right">
       <div class="notification"><i class="fas fa-bell"></i></div>
-      <div class="admin-info">
-        <div class="admin-name">Maureen Dela Cruz</div>
-        <div class="admin-role">VPAA</div>
+      <div class="top-right-container">
+        <div class="admin-info">
+          <div class="admin-name">Maureen Dela Cruz</div>
+          <div class="admin-role">VPAA</div>
+        </div>
+        <div class="print-download-buttons" id="printDownloadButtons">
+          <button class="download-btn">
+            <i class="fas fa-download"></i> Download
+          </button>
+          <button class="print-btn">
+            <i class="fas fa-print"></i> Print
+          </button>
+          <button class="edit-schedule-btn">
+            <i class="fas fa-edit"></i> Edit Schedule
+          </button>
+        </div>
       </div>
       <div class="profile-icon"><i class="fas fa-user-circle"></i></div>
     </div>
 
-    <div class="page-header">
-      <h1>Sections</h1>
-      <div class="button-group">
-        <button onclick="openImportModal()" class="add-subject-btn">Import Files</button>
+    <!-- Main Sections Page (default view) -->
+    <div id="sectionsView">
+      <div class="page-header">
+        <h1>Sections</h1>
+        <div class="button-group">
+          <button onclick="openImportModal()" class="add-subject-btn">Import Files</button>
+        </div>
+      </div>
+
+      <div class="year-section-dropdown">
+        <select id="yearFilter">
+          <option value="all">Year & Section</option>
+          <option value="1st Year">BSIS 1A</option>
+          <option value="2nd Year">BSIS 1B</option>
+          <option value="3rd Year">BSIS 1C</option>
+        </select>
+
+        <select id="programFilter">
+          <option value="all">All Programs</option>
+          <option value="BSIS">BSIS</option>
+          <option value="BSOM">BSOM</option>
+          <option value="BTVTED">BTVTED</option>
+          <option value="BSAIS">BSAIS</option>
+          <option value="BSCA">BSCA</option>
+        </select>
+      </div>
+
+      <div class="sections-container" id="sectionsContainer">
       </div>
     </div>
 
-    <div class="year-section-dropdown">
-      <select id="yearFilter">
-        <option value="all">Year & Section</option>
-        <option value="1st Year">BSIS 1A</option>
-        <option value="2nd Year">BSIS 1B</option>
-        <option value="3rd Year">BSIS 1C</option>
-      </select>
+    <!-- Schedule Page (hidden by default) -->
+    <div id="scheduleView" class="schedule-page">
 
-      <select id="programFilter">
-        <option value="all">All Programs</option>
-        <option value="BSIS">BSIS</option>
-        <option value="BSOM">BSOM</option>
-        <option value="BTVTED">BTVTED</option>
-        <option value="BSAIS">BSAIS</option>
-        <option value="BSCA">BSCA</option>
-      </select>
-    </div>
+      <!-- Back button with arrow and label -->
+      <button class="back-button" onclick="showSectionsView()">
+        <i class="fas fa-arrow-left"></i> Back
+      </button>
 
-    <div class="sections-container" id="sectionsContainer">
+      <div class="schedule-container">
+        <img src="C:\Users\Admin\Downloads\BSIS1A.png.jpg" alt="Schedule" class="schedule-image" id="scheduleImage" />
+      </div>
     </div>
 
     <!-- Add/Edit Section Modal -->
     <div id="sectionModal">
       <div class="modal-content">
+        <h2 id="modalTitle">Add Section</h2>
 
         <label for="sectionCode">Section Code</label>
         <input id="sectionCode" placeholder="e.g. BSIS-1A" />
@@ -590,6 +678,13 @@
     let editIndex = null;
     let deleteIndex = null;
 
+    // sample schedule images each section
+    const scheduleImages = {
+      "BSIS-1A": "C:\\Users\\Admin\\Downloads\\BSIS1A.png.jpg",
+      "BSIS-1B": "C:\\Users\\Admin\\Downloads\\BSIS1B.png.jpg",
+      "BSIS-1C": "C:\\Users\\Admin\\Downloads\\BSIS1C.png.jpg"
+    };
+
     function openModal(index = null) {
       document.getElementById("sectionModal").style.display = "flex";
       document.getElementById("modalTitle").textContent = index === null ? "Add Section" : "Edit Section";
@@ -649,17 +744,21 @@
           const sectionElement = document.createElement("div");
           sectionElement.className = "section-item";
 
-        sectionElement.innerHTML = `
-          <div class="section-name">${s.code}</div>
-          <div class="action-buttons">
-            <button class="edit-btn" onclick="openModal(${index})">
-              <img src="https://www.freeiconspng.com/thumbs/edit-icon-png/edit-icon-black-1.png" alt="Edit" width="20" height="20" />
-            </button>
-            <button class="delete-btn" onclick="deleteSection(${index})">
-              <i class="fa-solid fa-trash"></i>
-            </button>
-          </div>
-        `;
+          sectionElement.innerHTML = `
+            <div class="section-name">${s.code}</div>
+            <div class="action-buttons">
+              <button class="edit-btn" onclick="openModal(${index})">
+                <img src="https://www.freeiconspng.com/thumbs/edit-icon-png/edit-icon-black-1.png" alt="Edit" width="20" height="20" />
+              </button>
+              <button class="delete-btn" onclick="deleteSection(${index})">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          `;
+
+          sectionElement.querySelector('.section-name').addEventListener('click', function() {
+            showScheduleView(s.code);
+          });
 
           container.appendChild(sectionElement);
         }
@@ -743,10 +842,30 @@
       reader.readAsText(file);
     }
 
+    function showScheduleView(sectionCode) {
+      document.getElementById('scheduleImage').src = scheduleImages[sectionCode] || "https://via.placeholder.com/900x600.png?text=Schedule+Not+Available";
+      document.getElementById('scheduleImage').alt = `${sectionCode} Schedule`;
+      
+      document.getElementById('sectionsView').style.display = 'none';
+      document.getElementById('scheduleView').style.display = 'block';
+      
+      document.getElementById('printDownloadButtons').style.display = 'flex';
+    }
+
+    function showSectionsView() {
+      // hide schedule view and show sections view
+      document.getElementById('scheduleView').style.display = 'none';
+      document.getElementById('sectionsView').style.display = 'block';
+      
+      // hide print/download buttons
+      document.getElementById('printDownloadButtons').style.display = 'none';
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
       const importFileInput = document.getElementById('importFileInput');
       importFileInput.addEventListener('change', importSectionFile);
 
+      //sample sections
       sections.push(
         { code: "BSIS-1A", program: "BSIS", year: "1st Year" },
         { code: "BSIS-1B", program: "BSIS", year: "1st Year" },
@@ -759,6 +878,9 @@
 
       document.getElementById('yearFilter').addEventListener('change', renderSections);
       document.getElementById('programFilter').addEventListener('change', renderSections);
+
+      // hide print/download buttons
+      document.getElementById('printDownloadButtons').style.display = 'none';
     });
   </script>
 </body>
