@@ -451,21 +451,140 @@
         display: block;
       }
     }
+
+    @media screen and (max-width: 768px) {
+  nav {
+    flex-direction: row;
+    justify-content: space-around;
+    height: auto;
+    padding: 10px 5px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+
+  nav ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  nav ul li {
+    width: auto;
+  }
+
+  .main {
+    margin-left: 0;
+    padding-top: 160px;
+  }
+
+  .top-right {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  table, thead, tbody, th, td, tr {
+    display: block;
+    width: 100%;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tr {
+    margin-bottom: 15px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 10px;
+  }
+
+  td {
+    padding: 10px;
+    text-align: left;
+    position: relative;
+  }
+
+  td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .modal-content {
+    width: 90%;
+    padding: 30px 20px;
+  }
+
+  .delete-modal {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .modal-actions button {
+    width: 100px;
+    padding: 12px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .add-subject-btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .admin-info {
+    font-size: 14px;
+  }
+
+    .profile-icon {
+      font-size: 28px;
+    }
+
+    .modal-content input,
+    .modal-content select {
+      font-size: 13px;
+    }
+
+    .modal-actions {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .modal-actions button {
+      width: 100%;
+    }
+
+    .delete-modal-actions {
+      flex-direction: column;
+    }
+  }
+
+
+      
   </style>
 </head>
 <body>
 
 <nav>
   <div class="logo-container">
-    <img src="http://bpc.edu.ph/wp-content/uploads/2024/12/LOGO-e1733733724127-160.png" alt="School Logo">
+    <img src="https://github.com/andreacrnd/Webdev-hci/blob/main/ABS%20UNIVERSITY.png?raw=true" alt="School Logo">
   </div>
   <ul>
     <li><a href="Dashboard.html"><button><i class="fas fa-home"></i> Dashboard</button></a></li>
     <li><a href="Manage-faculty.html"><button><i class="fa-solid fa-user"></i> Manage Faculty</button></a></li>
-    <li><a href="manage-students.html"><button><i class="fa-solid fa-users"></i> Manage Student</button></a></li>
+    <li><a href="Manage-sections.html"><button><i class="fas fa-columns"></i> Manage Sections</button></a></li>
     <li><a href="Manage-rooms.html"><button><i class="fas fa-chalkboard-teacher"></i> Manage Room</button></a></li>
     <li><a href="Manage-subjects.html"><button class="active"><i class="fa-solid fa-book-open"></i> Manage Subject</button></a></li>
-    <li><a href="User  -Management.html"><button><i class="fas fa-user-friends"></i> User Management</button></a></li>
+    <li><a href="User-Management.html"><button><i class="fas fa-user-friends"></i> User Management</button></a></li>
     <li><a href="#"><button onclick="logout()"><i class="fas fa-power-off"></i> Logout</button></a></li>
   </ul>
 </nav>
@@ -613,11 +732,11 @@
     subjects.forEach((s, i) => {
       body.innerHTML += `
         <tr>
-          <td>${s.code}</td>
-          <td>${s.name}</td>
-          <td>${s.units}</td>
-          <td>${s.room}</td>
-          <td>
+          <td data-label="Subject Code">${s.code}</td>
+          <td data-label="Subject Name">${s.name}</td>
+          <td data-label="Units">${s.units}</td>
+          <td data-label="Room Type">${s.room}</td>
+          <td data-label="Action">
             <div class="action-buttons">
               <button class="edit-btn" onclick="openModal(${i})">
                 <img src="https://www.freeiconspng.com/thumbs/edit-icon-png/edit-icon-black-1.png" alt="Edit">
@@ -633,6 +752,7 @@
       `;
     });
   }
+
 
   subjects = [
     { code: 'ADHCI123', name: 'Human Computer Interaction', units: 3, room: 'Regular Room' },
