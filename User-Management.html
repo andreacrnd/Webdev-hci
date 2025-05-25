@@ -42,7 +42,8 @@
       width: 100%;
       display: flex;   
       flex-direction: column;  
-    } 
+      flex-grow: 1;
+    }
 
     nav ul li {
       width: 100%;
@@ -70,6 +71,14 @@
       font-weight: bold;
     }
 
+    nav ul li button img {
+      transition: filter 0.3s ease;
+    }
+
+    nav ul li button:hover img {
+      filter: brightness(0) invert(1);
+    }
+
     nav ul li:last-child {
       margin-top: auto;
     }
@@ -89,6 +98,7 @@
       font-weight: 600;
       font-family: 'Poppins', sans-serif;
       margin-bottom: 20px;
+      margin-top:20px;
     }
     
     .notification {
@@ -316,6 +326,66 @@
       background-color: black;
       color: white;
     }
+
+     @media (max-width: 768px) {
+    body {
+      flex-direction: column;
+      margin: 0;
+    }
+
+  
+    nav {
+      position: relative;
+      width: 100%;
+      height: auto;
+      flex-direction: row;
+      padding: 10px 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    nav ul {
+      flex-direction: row;
+      justify-content: space-around;
+    }
+
+    .main {
+      margin-left: 0;
+      padding: 10px;
+    }
+
+    .top-right {
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .input-row {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    input[type="text"], select, .add-user-btn {
+      width: 100%;
+    }
+
+    table {
+      display: block;
+      overflow-x: auto;
+    }
+
+    .edit-btn, .delete-btn {
+      width: 100%;
+      height: auto;
+    }
+
+    #editModal .edit-modal,
+    #deleteModal .delete-modal {
+      width: 90%;
+      padding: 20px;
+    }
+  }
+
   </style>
 </head>
 <body>
