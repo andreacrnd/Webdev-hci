@@ -13,7 +13,6 @@
       display: flex;
       background: linear-gradient(90deg, darkgreen 0%, green 100%);
     }
-
     nav {
       width: 200px;
       background-color: white;
@@ -24,17 +23,14 @@
       flex-direction: column;
       align-items: center;
     }
-
     .logo-container {
       text-align: center;
       padding: 10px;
     }
-
     .logo-container img {
       width: 120px; 
       height: auto;
     }
-
     nav ul {
       list-style: none;
       padding: 0;
@@ -43,11 +39,9 @@
       flex-direction: column;  
       flex-grow: 1;          
     } 
-
     nav ul li {
       width: 100%;
     }
-
     nav ul li button {
       width: 100%;
       background: none;
@@ -58,52 +52,40 @@
       cursor: pointer;
       text-align: left;
     }
-
     nav ul li button:hover {
       background-color: darkgreen;
       color: white;
     }
-
     nav ul li button.active {
       background-color: darkgreen;
       color: white;
       font-weight: bold;
     }
-
     nav ul li button img {
       transition: filter 0.3s ease;
     }
-
     nav ul li button:hover img {
       filter: brightness(0) invert(1);
     }
-
     nav ul li:last-child {
       margin-top: auto;
     }
-
     .main {
       margin-left: 220px;
+      margin-top: 20px;
       padding: 20px;
       color: white;
       flex-grow: 1;
     }
-
-    .page-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .page-header h1 {
-      margin-top: 0;      
-      padding-top: 0;      
-      position: relative; 
-      top: -80px;           
+    .main h1 {
+      font-size: 36px;
+      top: 30px;
     }
 
     .top-right {
+      position: absolute;
+      top: 0;
+      right: 40px;
       display: flex;
       align-items: center;
       justify-content: flex-end;
@@ -112,23 +94,11 @@
       padding-top: 40px;
       font-weight: 600;
       font-family: 'Poppins', sans-serif;
-      margin-bottom: 20px;
     }
-
-    .add-subject-btn {
-      background: #D9D9D9;
-      color: black;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 5px;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    }
-
+    
     .notification {
       font-size: 17px;
-      margin-bottom: 5px;
+      margin-bottom: 8px;
       cursor: pointer;
       position: relative;
     }
@@ -139,30 +109,61 @@
       font-size: 18px;
       text-align: right;
       line-height: 1.1;
-      margin-right: 10px;
     }
 
+    
+    #scheduleAdminInfo {
+      position: absolute;
+      top: 0;
+      right: 40px;
+      color: white;
+      padding-top: 40px;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+      background: transparent;
+    }
+    
     .admin-name {
       font-weight: 700;
+      font-size: 18px;
     }
-
     .admin-role {
       font-weight: 400;
-      font-size: 12px;
-      opacity: 0.8;
+      font-size: 14px;
+      color: #f0f0f0;
     }
-
+    
     .profile-icon {
       font-size: 34px;
       cursor: pointer;
     }
-
+    
+    .add-subject-btn {
+      background: #D9D9D9;
+      color: black;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      margin-top: 50px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    
+    .button-group {
+      display: flex;
+      justify-content: right;
+      gap: 10px;
+      margin-bottom: 30px;
+      padding: 1px 40px;
+      padding-top: 20px;
+    }
+    
     .action-buttons {
       display: flex;
       gap: 5px;
     }
-
-     .edit-btn, .delete-btn {
+    .edit-btn, .delete-btn {
       border: none;
       border-radius: 4px;
       cursor: pointer;
@@ -173,7 +174,6 @@
       background: transparent;
       color: black; 
     }
-
     .edit-btn i, .delete-btn i {
       margin-right: 5px;
     }
@@ -209,6 +209,7 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
+      padding: 1px 40px;
     }
 
     .program-title {
@@ -449,12 +450,11 @@
     }
 
     .year-section-dropdown {
-      margin-bottom: 20px;
+      margin-bottom: -50px;
       display: flex;
       gap: 10px;
       justify-content: flex-end;
-      gap: 15px;
-      padding-top: 30px;
+      padding: 20px 20px;
     }
 
     .year-section-dropdown select {
@@ -467,7 +467,6 @@
       font-size: 14px;
     }
 
-    /* schedule page (hidden by default) */
     .schedule-page {
       display: none;
     }
@@ -486,12 +485,12 @@
       align-items: center;
       gap: 5px;
     }
-
+    
     .print-download-buttons {
       display: flex;
       gap: 10px;
-      margin-left: auto;
-      padding-top: 150px;
+      margin-top: 30px;
+      justify-content: flex-end;
     }
 
     .print-btn, .download-btn, .edit-schedule-btn {
@@ -505,13 +504,13 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 8px;
     }
 
     .schedule-container {
       background-color: white;
       padding: 20px;
-      margin-top: 20px;
+      margin-top: 70px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
 
@@ -523,10 +522,19 @@
       border: 1px solid #ddd;
     }
 
-    .top-right-container {
+    .schedule-header {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      margin-bottom: 20px;
+    }
+
+    .admin-info-container {
       display: flex;
       align-items: center;
+      gap: 15px;
     }
+
   </style>
 </head>
 <body>
@@ -538,23 +546,71 @@
     <ul>
       <li><a href="Dashboard.html"><button><i class="fas fa-home"></i> Dashboard</button></a></li>
       <li><a href="Manage-Faculty.html"><button><i class="fa-solid fa-user"></i> Manage Faculty</button></a></li>
-      <li><a href="Manage-sections.html"><button class="active"><i class="fas fa-columns"></i> Manage Sections</button></a></li>
+      <li><a href="Manage-Sections.html"><button class="active"><i class="fas fa-columns"></i> Manage Sections</button></a></li>
       <li><a href="Manage-Rooms.html"><button><i class="fas fa-chalkboard-teacher"></i> Manage Room</button></a></li>
       <li><a href="Manage-Subjects.html"><button><i class="fa-solid fa-book-open"></i> Manage Subject</button></a></li>
       <li><a href="User-Management.html"><button><i class="fas fa-user-friends"></i> User Management</button></a></li>
-      <li><a href="Login.html"><button><i class="fas fa-power-off"></i> Logout</button></a></li>
+      <li><a href="Log-In.html"><button><i class="fas fa-power-off"></i> Logout</button></a></li>
     </ul>
   </nav>
 
-  <div class="main" id="mainContent">
-    <div class="top-right">
+  <div class="main">
+
+    <!-- Top right admin info section for main view -->
+    <div class="top-right" id="mainAdminInfo">
       <div class="notification"><i class="fas fa-bell"></i></div>
-      <div class="top-right-container">
-        <div class="admin-info">
-          <div class="admin-name">Maureen Dela Cruz</div>
-          <div class="admin-role">VPAA</div>
+      <div class="admininfo">
+        <div class="admin-name">Maureen Dela Cruz</div>
+        <div class="admin-role">VVPA</div>
+      </div>
+      <div class="profile-icon"><i class="fas fa-user-circle"></i></div>
+    </div>
+
+    <div class="page-header">
+      <h1>Sections</h1>
+    </div>
+
+    <!-- Sections View -->
+    <div id="sectionsView">
+      <div class="year-section-dropdown">
+        <select id="yearFilter">
+          <option value="all">Year & Section</option>
+          <option value="1st Year">BSIS 1A</option>
+          <option value="2nd Year">BSIS 1B</option>
+          <option value="3rd Year">BSIS 1C</option>
+        </select>
+        <select id="programFilter">
+          <option value="all">All Programs</option>
+          <option value="BSIS">BSIS</option>
+          <option value="BSOM">BSOM</option>
+          <option value="BTVTED">BTVTED</option>
+          <option value="BSAIS">BSAIS</option>
+          <option value="BSCA">BSCA</option>
+        </select>
+      </div>
+      <div class="button-group">
+        <button onclick="openImportModal()" class="add-subject-btn"><i class="fas fa-file-import"></i> Import Files</button>
+      </div>
+      <div class="sections-container" id="sectionsContainer"></div>
+    </div>
+
+    <!-- Schedule View -->
+    <div id="scheduleView" class="schedule-page">
+      <button class="back-button" onclick="showSectionsView()">
+        <i class="fas fa-arrow-left"></i> Back
+      </button>
+      
+      <!-- Admin info for schedule page -->
+      <div class="schedule-header" id="scheduleAdminInfo">
+        <div class="admin-info-container">
+          <div class="notification"><i class="fas fa-bell"></i></div>
+          <div class="admininfo">
+            <div class="admin-name">Maureen Dela Cruz</div>
+            <div class="admin-role">VVPA</div>
+          </div>
+          <div class="profile-icon"><i class="fas fa-user-circle"></i></div>
         </div>
-        <div class="print-download-buttons" id="printDownloadButtons">
+        <div class="print-download-buttons">
           <button class="download-btn">
             <i class="fas fa-download"></i> Download
           </button>
@@ -566,61 +622,17 @@
           </button>
         </div>
       </div>
-      <div class="profile-icon"><i class="fas fa-user-circle"></i></div>
-    </div>
-
-    <!-- Main Sections Page (default view) -->
-    <div id="sectionsView">
-      <div class="page-header">
-        <h1>Sections</h1>
-        <div class="button-group">
-          <button onclick="openImportModal()" class="add-subject-btn">Import Files</button>
-        </div>
-      </div>
-
-      <div class="year-section-dropdown">
-        <select id="yearFilter">
-          <option value="all">Year & Section</option>
-          <option value="1st Year">BSIS 1A</option>
-          <option value="2nd Year">BSIS 1B</option>
-          <option value="3rd Year">BSIS 1C</option>
-        </select>
-
-        <select id="programFilter">
-          <option value="all">All Programs</option>
-          <option value="BSIS">BSIS</option>
-          <option value="BSOM">BSOM</option>
-          <option value="BTVTED">BTVTED</option>
-          <option value="BSAIS">BSAIS</option>
-          <option value="BSCA">BSCA</option>
-        </select>
-      </div>
-
-      <div class="sections-container" id="sectionsContainer">
-      </div>
-    </div>
-
-    <!-- Schedule Page (hidden by default) -->
-    <div id="scheduleView" class="schedule-page">
-
-      <!-- Back button with arrow and label -->
-      <button class="back-button" onclick="showSectionsView()">
-        <i class="fas fa-arrow-left"></i> Back
-      </button>
-
       <div class="schedule-container">
-        <img src="C:\Users\Admin\Downloads\BSIS1A.png.jpg" alt="Schedule" class="schedule-image" id="scheduleImage" />
+        <img src="" alt="Schedule" class="schedule-image" id="schedulePageImage" />
       </div>
     </div>
 
-    <!-- Add/Edit Section Modal -->
+    <!-- Modal for Add/Edit Section -->
     <div id="sectionModal">
       <div class="modal-content">
         <h2 id="modalTitle">Add Section</h2>
-
         <label for="sectionCode">Section Code</label>
         <input id="sectionCode" placeholder="e.g. BSIS-1A" />
-
         <label for="sectionYear">Year Level</label>
         <select id="sectionYear">
           <option>1st Year</option>
@@ -628,7 +640,6 @@
           <option>3rd Year</option>
           <option>4th Year</option>
         </select>
-
         <label for="sectionProgram">Program</label>
         <select id="sectionProgram">
           <option>BSIS</option>
@@ -637,7 +648,6 @@
           <option>BSAIS</option>
           <option>BSCA</option>
         </select>
-
         <div class="modal-actions">
           <button class="save-btn" onclick="saveSection()">Save</button>
           <button class="cancel-btn" onclick="closeModal()">Cancel</button>
@@ -645,6 +655,7 @@
       </div>
     </div>
 
+    <!-- delete confirmation -->
     <div id="deleteModal" class="modal-overlay">
       <div class="delete-modal">
         <p class="delete-modal-text">Are you sure you want to delete this section?</p>
@@ -655,7 +666,6 @@
       </div>
     </div>
 
-    <!-- Import Modal -->
     <div class="modal-backdrop" id="importModal">
       <div class="import-modal">
         <h2>Import Files</h2>
@@ -671,6 +681,7 @@
         </div>
       </div>
     </div>
+
   </div>
 
   <script>
@@ -678,7 +689,6 @@
     let editIndex = null;
     let deleteIndex = null;
 
-    // sample schedule images each section
     const scheduleImages = {
       "BSIS-1A": "C:\\Users\\Admin\\Downloads\\BSIS1A.png.jpg",
       "BSIS-1B": "C:\\Users\\Admin\\Downloads\\BSIS1B.png.jpg",
@@ -795,13 +805,11 @@
     }
 
     function clearImportFileInput() {
-      const fileInput = document.getElementById('importFileInput');
-      fileInput.value = '';
+      document.getElementById('importFileInput').value = '';
     }
 
     function setImportStatusVisible(visible) {
-      const status = document.getElementById('importStatus');
-      status.style.display = visible ? 'block' : 'none';
+      document.getElementById('importStatus').style.display = visible ? 'block' : 'none';
     }
 
     function importSectionFile(event) {
@@ -817,25 +825,20 @@
           if (Array.isArray(importedData)) {
             importedData.forEach(s => {
               if (s.code && s.program && s.year) {
-                sections.push({
-                  code: s.code,
-                  program: s.program,
-                  year: s.year
-                });
+                sections.push({ code: s.code, program: s.program, year: s.year });
               }
             });
             renderSections();
-
             setTimeout(() => {
               closeImportModal();
               setImportStatusVisible(false);
             }, 2000);
           } else {
-            alert('Invalid file format. Please upload a valid JSON file.');
+            alert('Invalid file format.');
             setImportStatusVisible(false);
           }
         } catch (err) {
-          alert('Failed to read file. Make sure it\'s valid JSON.');
+          alert('Failed to read file.');
           setImportStatusVisible(false);
         }
       };
@@ -843,29 +846,28 @@
     }
 
     function showScheduleView(sectionCode) {
-      document.getElementById('scheduleImage').src = scheduleImages[sectionCode] || "https://via.placeholder.com/900x600.png?text=Schedule+Not+Available";
-      document.getElementById('scheduleImage').alt = `${sectionCode} Schedule`;
-      
+      const imgSrc = scheduleImages[sectionCode] || "https://via.placeholder.com/900x600.png?text=Schedule+Not+Available";
+      document.getElementById('schedulePageImage').src = imgSrc;
+      document.getElementById('schedulePageImage').alt = sectionCode + ' Schedule';
+
       document.getElementById('sectionsView').style.display = 'none';
+      document.getElementById('mainAdminInfo').style.display = 'none';
       document.getElementById('scheduleView').style.display = 'block';
-      
-      document.getElementById('printDownloadButtons').style.display = 'flex';
     }
 
     function showSectionsView() {
-      // hide schedule view and show sections view
       document.getElementById('scheduleView').style.display = 'none';
       document.getElementById('sectionsView').style.display = 'block';
-      
-      // hide print/download buttons
-      document.getElementById('printDownloadButtons').style.display = 'none';
+      document.getElementById('mainAdminInfo').style.display = 'flex';
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      const importFileInput = document.getElementById('importFileInput');
-      importFileInput.addEventListener('change', importSectionFile);
+      document.getElementById('closeImportModalBtn').addEventListener('click', closeImportModal);
+      document.getElementById('importFileInput').addEventListener('change', importSectionFile);
+      document.getElementById('yearFilter').addEventListener('change', renderSections);
+      document.getElementById('programFilter').addEventListener('change', renderSections);
 
-      //sample sections
+      // Sample initial sections
       sections.push(
         { code: "BSIS-1A", program: "BSIS", year: "1st Year" },
         { code: "BSIS-1B", program: "BSIS", year: "1st Year" },
@@ -873,14 +875,6 @@
       );
 
       renderSections();
-
-      document.getElementById('closeImportModalBtn').addEventListener('click', closeImportModal);
-
-      document.getElementById('yearFilter').addEventListener('change', renderSections);
-      document.getElementById('programFilter').addEventListener('change', renderSections);
-
-      // hide print/download buttons
-      document.getElementById('printDownloadButtons').style.display = 'none';
     });
   </script>
 </body>
