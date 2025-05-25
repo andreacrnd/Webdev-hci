@@ -2,48 +2,46 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>User Management with Sidebar and Edit Popup</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Management with Styled Buttons</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
-    /* Keep your existing styles for the sidebar unchanged */
-
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       display: flex;
       background: linear-gradient(90deg, darkgreen 0%, green 100%);
     }
-
-    /* Sidebar styles (unchanged) */
+ 
     nav {
       width: 200px;
-      background-color: white;
       height: 100vh;
+      background-color: white;
       padding-top: 20px;
       position: fixed;
       display: flex;
       flex-direction: column;
       align-items: center;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+      z-index: 10;
     }
-
+    
     .logo-container {
       text-align: center;
       padding: 10px;
     }
-
+    
     .logo-container img {
       width: 120px;
       height: auto;
     }
-
- nav ul {
+    
+    nav ul {
       list-style: none;
       padding: 0;
       width: 100%;
       display: flex;   
       flex-direction: column;  
-      flex-grow: 1;          
     } 
 
     nav ul li {
@@ -72,14 +70,6 @@
       font-weight: bold;
     }
 
-    nav ul li button img {
-      transition: filter 0.3s ease;
-    }
-
-    nav ul li button:hover img {
-      filter: brightness(0) invert(1);
-    }
-
     nav ul li:last-child {
       margin-top: auto;
     }
@@ -87,8 +77,8 @@
     .main {
       margin-left: 220px;
       padding: 20px;
-      color: white;
       flex-grow: 1;
+      color: white;
     }
 
     .top-right {
@@ -100,26 +90,26 @@
       font-family: 'Poppins', sans-serif;
       margin-bottom: 20px;
     }
-
+    
     .notification {
       font-size: 17px;
       cursor: pointer;
     }
-
+    
     .admin-info {
       text-align: right;
     }
-
+    
     .admin-name {
       font-weight: 700;
     }
-
+    
     .admin-role {
       font-weight: 400;
       font-size: 12px;
       opacity: 0.8;
     }
-
+    
     .profile-icon {
       font-size: 30px;
       cursor: pointer;
@@ -134,26 +124,24 @@
       justify-content: flex-end;
       margin-bottom: 20px;
     }
-
+    
     .input-row {
       display: flex;
       gap: 10px;
-      align-items: center;
       flex-wrap: wrap;
+      align-items: center;
     }
-
-    .input-row input,
-    .input-row select {
+    
+    .input-row input, select {
       padding: 8px;
       border: none;
       border-radius: 6px;
-      font-size: 14px;
       background: #d9d9d9;
-      color: black;
       font-weight: bold;
+      font-size: 14px;
       width: 165px;
     }
-
+    
     .add-user-btn {
       background: #d9d9d9;
       color: black;
@@ -172,36 +160,53 @@
       border-radius: 8px;
       overflow: hidden;
     }
+    
     th, td {
       padding: 10px;
       text-align: left;
       color: white;
     }
+    
     th {
       background-color: rgba(0, 0, 0, 0.2);
     }
+    
     tr:nth-child(even) {
       background-color: rgba(255, 255, 255, 0.05);
     }
 
-    /* Buttons styles */
     .edit-btn, .delete-btn {
-      background-color: #ffc107;
       border: none;
-      padding: 5px 10px;
-      margin-right: 5px;
       border-radius: 4px;
       cursor: pointer;
-      font-size: 14px;
+      padding: 8px;
+      font-size: 13px;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      gap: 3px;
     }
+    
+    .edit-btn i,
+    .delete-btn i {
+      font-size: 16px;
+    }
+    
+    .edit-btn {
+      background-color: #ffc107; 
+      color: #212529;
+    }
+    
     .delete-btn {
-      background-color: #dc3545;
-      color: white;
+      background-color: #dc3545; 
+      color: #fff;
     }
 
-    /* Modal styles for editing user */
-    #editModal {
-      display: none; /* Hidden by default */
+    #editModal, #deleteModal {
+      display: none;  
       position: fixed;
       top:0; left:0;
       width: 100%; height: 100%;
@@ -210,98 +215,110 @@
       align-items: center;
       z-index: 1000;
     }
+
     .edit-modal {
       background: white;
-      padding: 20px;
+      border-radius: 15px;
+      padding: 50px;
       border-radius: 8px;
       width: 350px;
       display: flex;
       flex-direction: column;
     }
+    
     .edit-modal h2 {
       margin-top: 0;
+      align-self: center;
     }
+    
     .edit-form {
       display: flex;
       flex-direction: column;
       gap: 10px;
     }
-    .edit-form label {
+    
+    .form-group {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .form-group label {
+      width: 80px;
       font-weight: bold;
     }
-    .edit-form input, .edit-form select {
+
+    .form-group input,
+    .form-group select {
+      flex: 1;
       padding: 8px;
       border: none;
       border-radius: 6px;
       background: #d9d9d9;
     }
+
     .edit-actions {
       margin-top: 15px;
       display: flex;
-      justify-content: flex-end;
+      justify-content: center; 
       gap: 10px;
     }
-    .save-btn, .cancel-btn {
-      padding: 8px 16px;
+    
+    .save-btn {
+      background-color: #28a745; 
+      color: white;
+      padding: 10px 25px;
       border: none;
       border-radius: 4px;
       cursor: pointer;
       font-weight: bold;
+      width: 130px;
     }
-    .save-btn {
-      background-color: #28a745; /* green */
-      color: white;
-    }
+    
     .cancel-btn {
-      background-color: #ccc;
-    }
-
-    /* Delete modal remains the same */
-    #deleteModal {
-      display: none;
-      position: fixed;
-      top:0; left:0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.5);
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      border: black;
-    }
-
-    .delete-modal {
-      background: white;
-      padding: 20px;
-      border-radius: 4px;
-      width: 300px;
-      text-align: center;
-      border: solid;
-    }
-
-    .delete-modal-text {
-      margin-bottom: 20px;
-    }
-
-    .delete-modal-actions {
-      display: flex;
-      justify-content: center; /* or space-around */
-      gap: 20px; /* spacing between buttons */
-   }
-
-    .modal-btn {
-      padding: 15px 25px;
-      gap: 50px;
+      background-color: #6c757d; 
+      color: white;
+      padding: 10px 25px;
       border: none;
       border-radius: 4px;
       cursor: pointer;
-      background-color: black; 
+      font-weight: bold;
+      width: 130px;
+    }
+
+
+    #deleteModal {
+      display: none;
+    }
+    .delete-modal {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      width: 300px;
+      text-align: center;
+    }
+    .delete-modal-text {
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+    .delete-modal-actions {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    .modal-btn {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      background-color: black;
       color: white;
     }
-    
   </style>
 </head>
 <body>
-  <!-- Sidebar (unchanged) -->
   <nav>
     <div class="logo-container">
       <img src="http://bpc.edu.ph/wp-content/uploads/2024/12/LOGO-e1733733724127-160.png" alt="School Logo" />
@@ -317,7 +334,6 @@
     </ul>
   </nav>
 
-  <!-- Main content -->
   <div class="main">
     <div class="top-right">
       <div class="notification"><i class="fas fa-bell"></i></div>
@@ -329,8 +345,6 @@
     </div>
 
     <h1>User Management</h1>
-
-    <!-- Input for creating new user -->
     <div class="input-container">
       <div class="input-row">
         <input type="text" id="nameInput" placeholder="Name" />
@@ -343,7 +357,6 @@
       </div>
     </div>
 
-    <!-- User table -->
     <table class="user-table">
       <thead>
         <tr>
@@ -355,8 +368,7 @@
           <th>Actions</th>
         </tr>
       </thead>
-      <tbody>
-        <!-- Sample data -->
+      <tbody id="userTableBody">
         <tr>
           <td>1</td>
           <td>Sarah Cruz</td>
@@ -364,8 +376,14 @@
           <td>Staff</td>
           <td>August 12, 2024</td>
           <td>
-            <button class="edit-btn"><i class="fas fa-pen"></i>Edit</button>
-            <button class="delete-btn"><i class="fas fa-trash"></i>Delete</button>
+              <button class="edit-btn">
+                <i class="fas fa-pen"></i>
+                <span>Edit</span>
+              </button>
+              <button class="delete-btn">
+                <i class="fas fa-trash"></i>
+                <span>Delete</span>
+              </button>
           </td>
         </tr>
         <tr>
@@ -375,8 +393,14 @@
           <td>Admin</td>
           <td>June 30, 2024</td>
           <td>
-            <button class="edit-btn"><i class="fas fa-pen"></i>Edit</button>
-            <button class="delete-btn"><i class="fas fa-trash"></i>Delete</button>
+            <button class="edit-btn">
+              <i class="fas fa-pen"></i>
+              <span>Edit</span>
+            </button>
+            <button class="delete-btn">
+              <i class="fas fa-trash"></i>
+              <span>Delete</span>
+            </button>
           </td>
         </tr>
       </tbody>
@@ -387,16 +411,21 @@
     <div class="edit-modal">
       <h2>Edit User</h2>
       <form class="edit-form">
-        <input type="hidden" id="editUserId" />
-        <label for="editName">Name:</label>
-        <input type="text" id="editName" />
-        <label for="editPassword">Password:</label>
-        <input type="text" id="editPassword" />
-        <label for="editRole">Role:</label>
-        <select id="editRole">
-          <option value="Admin">Admin</option>
-          <option value="Staff">Staff</option>
-        </select>
+        <div class="form-group">
+          <label for="editName">Name:</label>
+          <input type="text" id="editName" />
+        </div>
+        <div class="form-group">
+          <label for="editPassword">Password:</label>
+          <input type="text" id="editPassword" />
+        </div>
+        <div class="form-group">
+          <label for="editRole">Role:</label>
+          <select id="editRole">
+            <option value="Admin">Admin</option>
+            <option value="Staff">Staff</option>
+          </select>
+        </div>
       </form>
       <div class="edit-actions">
         <button class="save-btn">Save</button>
@@ -405,130 +434,146 @@
     </div>
   </div>
 
-  <div id="deleteModal" class="modal-overlay">
+  <div id="deleteModal">
     <div class="delete-modal">
       <p class="delete-modal-text">Are you sure you want to delete this user?</p>
       <div class="delete-modal-actions">
-        <button onclick="confirmDelete()" class="modal-btn">Yes</button>
-        <button onclick="closeDeleteModal()" class="modal-btn">Back</button>
+        <button class="modal-btn" id="confirmDelete">Yes</button>
+        <button class="modal-btn" id="cancelDelete">No</button>
       </div>
     </div>
   </div>
 
   <script>
+    const editModal = document.getElementById('editModal');
+    const deleteModal = document.getElementById('deleteModal');
+    const userTableBody = document.getElementById('userTableBody');
+
+    let users = [
+      {id: 1, name: "Sarah Cruz", password: "srah08", role: "Staff", dateCreated: "August 12, 2024"},
+      {id: 2, name: "Kyla Martinez", password: "ad_kyla30", role: "Admin", dateCreated: "June 30, 2024"}
+    ];
+
+    let editUserId = null;
+    let deleteUserId = null;
+
     const nameInput = document.getElementById('nameInput');
     const passwordInput = document.getElementById('passwordInput');
     const roleSelect = document.getElementById('roleSelect');
-    const tbody = document.querySelector('.user-table tbody');
-    const createBtn = document.querySelector('.add-user-btn');
 
-    let userIdCounter = 3;
+    const editName = document.getElementById('editName');
+    const editPassword = document.getElementById('editPassword');
+    const editRole = document.getElementById('editRole');
 
-    let rowToDelete = null;
-    let rowToEdit = null;
+    function renderUsers() {
+      userTableBody.innerHTML = '';
+      users.forEach(user => {
+        const tr = document.createElement('tr');
 
-    // Create user
-    createBtn.addEventListener('click', () => {
+        tr.innerHTML = `
+          <td>${user.id}</td>
+          <td>${user.name}</td>
+          <td>${user.password}</td>
+          <td>${user.role}</td>
+          <td>${user.dateCreated}</td>
+          <td>
+            <button class="edit-btn" data-id="${user.id}">
+              <i class="fas fa-pen"></i><span>Edit</span>
+            </button>
+            <button class="delete-btn" data-id="${user.id}">
+              <i class="fas fa-trash"></i><span>Delete</span>
+            </button>
+          </td>
+        `;
+        userTableBody.appendChild(tr);
+      });
+
+      document.querySelectorAll('.edit-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = parseInt(btn.getAttribute('data-id'));
+          openEditModal(id);
+        });
+      });
+
+      document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = parseInt(btn.getAttribute('data-id'));
+          openDeleteModal(id);
+        });
+      });
+    }
+
+    document.querySelector('.add-user-btn').addEventListener('click', () => {
       const name = nameInput.value.trim();
       const password = passwordInput.value.trim();
       const role = roleSelect.value;
 
       if (!name || !password) {
-        alert("Please fill in all fields.");
+        alert('Please fill in both name and password.');
         return;
       }
 
-      const date = new Date().toLocaleDateString('en-US', {
-        year: 'numeric', month: 'long', day: 'numeric'
-      });
+      const newId = users.length ? users[users.length - 1].id + 1 : 1;
+      const dateCreated = new Date().toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'});
 
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td>${userIdCounter}</td>
-        <td>${name}</td>
-        <td>${password}</td>
-        <td>${role}</td>
-        <td>${date}</td>
-        <td>
-          <button class="edit-btn"><i class="fas fa-pen"></i></button>
-          <button class="delete-btn"><i class="fas fa-trash"></i></button>
-        </td>
-      `;
-      tbody.appendChild(row);
-      addRowListeners(row);
-      // Reset input fields
+      users.push({id: newId, name, password, role, dateCreated});
+      renderUsers();
+
       nameInput.value = '';
       passwordInput.value = '';
       roleSelect.value = 'Admin';
-      userIdCounter++;
     });
 
-    function addRowListeners(row) {
-      // Edit button
-      row.querySelector('.edit-btn').addEventListener('click', () => {
-        rowToEdit = row;
-        const cells = row.querySelectorAll('td');
-        document.getElementById('editUserId').value = cells[0].textContent;
-        document.getElementById('editName').value = cells[1].textContent;
-        document.getElementById('editPassword').value = cells[2].textContent;
-        document.getElementById('editRole').value = cells[3].textContent;
-        document.getElementById('editModal').style.display = 'flex';
-      });
+    function openEditModal(id) {
+      editUserId = id;
+      const user = users.find(u => u.id === id);
+      if (!user) return;
 
-      // Delete button
-      row.querySelector('.delete-btn').addEventListener('click', () => {
-        rowToDelete = row;
-        document.getElementById('deleteModal').style.display = 'flex';
-      });
+      editName.value = user.name;
+      editPassword.value = user.password;
+      editRole.value = user.role;
+
+      editModal.style.display = 'flex';
     }
-
-    // Attach existing rows
-    document.querySelectorAll('.user-table tbody tr').forEach(addRowListeners);
-
-    // Save edited user
+    
     document.querySelector('.save-btn').addEventListener('click', () => {
-      if (rowToEdit) {
-        const cells = rowToEdit.querySelectorAll('td');
-        cells[1].textContent = document.getElementById('editName').value;
-        cells[2].textContent = document.getElementById('editPassword').value;
-        cells[3].textContent = document.getElementById('editRole').value;
-        closeEditModal();
-      }
-    });
+      if (editUserId === null) return;
+      const user = users.find(u => u.id === editUserId);
+      if (!user) return;
 
-    // Cancel editing
-    document.querySelector('.cancel-btn').addEventListener('click', () => {
+      user.name = editName.value.trim();
+      user.password = editPassword.value.trim();
+      user.role = editRole.value;
+
+      renderUsers();
       closeEditModal();
     });
 
+    document.querySelector('.cancel-btn').addEventListener('click', closeEditModal);
     function closeEditModal() {
-      document.getElementById('editModal').style.display = 'none';
-      rowToEdit = null;
+      editUserId = null;
+      editModal.style.display = 'none';
     }
 
-    // Confirm delete
-    function confirmDelete() {
-      if (rowToDelete) {
-        rowToDelete.remove();
-        rowToDelete = null;
-        document.getElementById('deleteModal').style.display = 'none';
-      }
+    function openDeleteModal(id) {
+      deleteUserId = id;
+      deleteModal.style.display = 'flex';
     }
 
+    document.getElementById('confirmDelete').addEventListener('click', () => {
+      if (deleteUserId === null) return;
+      users = users.filter(u => u.id !== deleteUserId);
+      renderUsers();
+      closeDeleteModal();
+    });
+
+    document.getElementById('cancelDelete').addEventListener('click', closeDeleteModal);
     function closeDeleteModal() {
-      rowToDelete = null;
-      document.getElementById('deleteModal').style.display = 'none';
+      deleteUserId = null;
+      deleteModal.style.display = 'none';
     }
-
-    // Close modals if click outside
-    window.onclick = function(event) {
-      if (event.target === document.getElementById('editModal')) {
-        closeEditModal();
-      }
-      if (event.target === document.getElementById('deleteModal')) {
-        closeDeleteModal();
-      }
-    }
+    
+    renderUsers();
   </script>
 </body>
 </html>
