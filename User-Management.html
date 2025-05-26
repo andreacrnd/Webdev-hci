@@ -183,25 +183,37 @@
 
     table {
       width: 100%;
-      border-collapse: collapse;
-      background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
-      overflow: hidden;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      color: white;
+      border-spacing: 0;
+      table-layout: fixed;
     }
 
     th, td {
-      padding: 10px;
-      text-align: left;
-      color: white;
+      padding: 20px 25px;
+      text-align: center;
+      vertical-align: middle;
     }
 
     th {
-      background-color: rgba(0, 0, 0, 0.2);
+      font-size: 16px;
+      background: rgba(255, 255, 255, 0.15);
     }
 
-    tr:nth-child(even) {
-      background-color: rgba(255, 255, 255, 0.05);
+    td {
+      font-size: 15px;
+      border-top: none;
     }
+
+    td:nth-child(2) {
+      width: 35%;
+    }
+
+    td:nth-child(4) {
+      width: 25%;
+    }
+
 
     .action-buttons {
       display: flex;
