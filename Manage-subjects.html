@@ -162,7 +162,7 @@
     }
 
   
-    .top-right {
+ .top-right {
       display: flex;
       justify-content: flex-end;
       align-items: center;
@@ -435,6 +435,72 @@
       transition: 0.3s;
     }
 
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
+      nav {
+        transition: transform 0.3s ease;
+        transform: translateX(-100%);
+        position: fixed;
+        top: 0; left: 0;
+        height: 100%;
+        width: 200px;
+        z-index: 1000;
+        box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+        background-color: #fff;
+      }
+      nav.show {
+        transform: translateX(0);
+      }
+      body.menu-open {
+        overflow: hidden;
+      }
+       .page-header h1 {
+        margin-top: 0;      
+        padding-top: 0;      
+        position: relative; 
+        top: -100px;          
+      }
+      .main {
+        margin-left: 0;
+      }
+      .top-right {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 15px;
+        font-weight: 600;
+        font-family: 'Poppins', sans-serif;
+        margin-bottom: 20px;
+        margin-top: 20px;
+      }
+      .notification {
+        margin-top:50px;
+        font-size: 17px;
+        cursor: pointer;
+      }
+      .admin-info {
+        pmargin-top:50px;
+        text-align: right;
+      }
+      .admin-name {
+        margin-top:50px;
+        font-weight: 700;
+      }
+      .admin-role {
+        margin-top:50px;
+        font-weight: 400;
+        font-size: 12px;
+        opacity: 0.8;
+      }
+      .profile-icon {
+        margin-top:50px;
+        font-size: 30px;
+        cursor: pointer;
+      }
+    }
+
     @media screen and (max-width: 768px) {
       table {
         width: 100%;
@@ -470,7 +536,7 @@
         margin-top: 0;      
         padding-top: 0;      
         position: relative; 
-        top: -110px;          
+        top: -100px;          
       }
         .main {
             margin-left: 0;
